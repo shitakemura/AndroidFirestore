@@ -3,9 +3,13 @@ package com.example.shitakemura.androidfirestore
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    var selectedCategory = FUNNY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,5 +20,37 @@ class MainActivity : AppCompatActivity() {
             val addToughtIntent = Intent(this, AddToughtActivity::class.java)
             startActivity(addToughtIntent)
         }
+    }
+
+    fun mainFunnyClicked(view: View) {
+        selectedCategory = FUNNY
+        mainFunnyButton.isChecked = true
+        mainSeriousButton.isChecked = false
+        mainCrazyButton.isChecked = false
+        mainPopularButton.isChecked = false
+    }
+
+    fun mainSeriousClicked(view: View) {
+        selectedCategory = SERIOUS
+        mainFunnyButton.isChecked = false
+        mainSeriousButton.isChecked = true
+        mainCrazyButton.isChecked = false
+        mainPopularButton.isChecked = false
+    }
+
+    fun mainCrazyClicked(view: View) {
+        selectedCategory = CRAZY
+        mainFunnyButton.isChecked = false
+        mainSeriousButton.isChecked = false
+        mainCrazyButton.isChecked = true
+        mainPopularButton.isChecked = false
+    }
+
+    fun mainPopularClicked(view: View) {
+        selectedCategory = POPULAR
+        mainFunnyButton.isChecked = false
+        mainSeriousButton.isChecked = false
+        mainCrazyButton.isChecked = false
+        mainPopularButton.isChecked = true
     }
 }
