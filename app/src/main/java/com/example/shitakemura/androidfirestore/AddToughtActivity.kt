@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_add_tought.*
 
 class AddToughtActivity : AppCompatActivity() {
 
-    var selectedCategory = FUNNY
+    private var selectedCategory = FUNNY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +20,12 @@ class AddToughtActivity : AppCompatActivity() {
     fun addPostClicked(view: View) {
         // add post to Firestore
         val data = HashMap<String, Any>()
-        data.put("category", selectedCategory)
-        data.put("numComments", 0)
-        data.put("numLikes", 0)
-        data.put("thoughtText", addToughtText.text.toString())
-        data.put("timestamp", FieldValue.serverTimestamp())
-        data.put("username", addUsernameText.text.toString())
+        data.put(CATEGORY, selectedCategory)
+        data.put(NUM_COMMENTS, 0)
+        data.put(NUM_LIKES, 0)
+        data.put(THOUGHT_TEXT, addToughtText.text.toString())
+        data.put(TIMESTAMP, FieldValue.serverTimestamp())
+        data.put(USERNAME, addUsernameText.text.toString())
 
         FirebaseFirestore.getInstance().collection(THOUGHT_REF)
                 .add(data)
@@ -37,7 +37,6 @@ class AddToughtActivity : AppCompatActivity() {
                 }
 
     }
-
 
     fun addFunnyClicked(view: View) {
         selectedCategory = FUNNY
