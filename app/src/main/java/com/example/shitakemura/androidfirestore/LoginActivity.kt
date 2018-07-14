@@ -1,5 +1,6 @@
 package com.example.shitakemura.androidfirestore
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -16,6 +17,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun loginCreateClicked(view: View) {
-
+        val createIntent = Intent(this, CreateUserActivity::class.java)
+        startActivity(createIntent)
     }
 }
