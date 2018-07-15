@@ -3,7 +3,6 @@ package com.example.shitakemura.androidfirestore
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FieldValue
@@ -18,9 +17,17 @@ class CreateUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
         auth = FirebaseAuth.getInstance()
+
+        createCreateButton.setOnClickListener {
+            createUser()
+        }
+
+        createCancelButton.setOnClickListener {
+            finish()
+        }
     }
 
-    fun createCreateClicked(view: View) {
+    fun createUser() {
         val email = createEmailText.text.toString()
         val password = createPasswordText.text.toString()
         val username = createUsernameText.text.toString()
@@ -51,12 +58,9 @@ class CreateUserActivity : AppCompatActivity() {
                             }
 
                 }
-                .addOnFailureListener { exception ->  
+                .addOnFailureListener { exception ->
                     Log.e("Exception:", "Could not create user: ${exception.localizedMessage}")
                 }
-    }
 
-    fun createCancelClicked(view: View) {
-        finish()
     }
 }

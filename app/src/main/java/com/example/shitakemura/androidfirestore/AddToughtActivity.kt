@@ -15,6 +15,27 @@ class AddToughtActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_tought)
+
+        addFunnyButton.setOnClickListener {
+            selectedCategory = FUNNY
+            addFunnyButton.isChecked = true
+            addSeriousButton.isChecked = false
+            addCrazyButton.isChecked = false
+        }
+
+        addSeriousButton.setOnClickListener {
+            selectedCategory = SERIOUS
+            addFunnyButton.isChecked = false
+            addSeriousButton.isChecked = true
+            addCrazyButton.isChecked = false
+        }
+
+        addCrazyButton.setOnClickListener {
+            selectedCategory = CRAZY
+            addFunnyButton.isChecked = false
+            addSeriousButton.isChecked = false
+            addCrazyButton.isChecked = true
+        }
     }
 
     fun addPostClicked(view: View) {
@@ -36,26 +57,5 @@ class AddToughtActivity : AppCompatActivity() {
                     Log.e("Exception", "Could not add post: $exception")
                 }
 
-    }
-
-    fun addFunnyClicked(view: View) {
-        selectedCategory = FUNNY
-        addFunnyButton.isChecked = true
-        addSeriousButton.isChecked = false
-        addCrazyButton.isChecked = false
-    }
-
-    fun addSeriousClicked(view: View) {
-        selectedCategory = SERIOUS
-        addFunnyButton.isChecked = false
-        addSeriousButton.isChecked = true
-        addCrazyButton.isChecked = false
-    }
-
-    fun addCrazyClicked(view: View) {
-        selectedCategory = CRAZY
-        addFunnyButton.isChecked = false
-        addSeriousButton.isChecked = false
-        addCrazyButton.isChecked = true
     }
 }

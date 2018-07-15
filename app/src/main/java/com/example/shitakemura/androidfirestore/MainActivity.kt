@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
@@ -30,6 +29,50 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             val addToughtIntent = Intent(this, AddToughtActivity::class.java)
             startActivity(addToughtIntent)
+        }
+
+        mainFunnyButton.setOnClickListener {
+            selectedCategory = FUNNY
+            mainFunnyButton.isChecked = true
+            mainSeriousButton.isChecked = false
+            mainCrazyButton.isChecked = false
+            mainPopularButton.isChecked = false
+
+            thoughtsListener.remove()
+            setListener()
+        }
+
+        mainSeriousButton.setOnClickListener {
+            selectedCategory = SERIOUS
+            mainFunnyButton.isChecked = false
+            mainSeriousButton.isChecked = true
+            mainCrazyButton.isChecked = false
+            mainPopularButton.isChecked = false
+
+            thoughtsListener.remove()
+            setListener()
+        }
+
+        mainCrazyButton.setOnClickListener {
+            selectedCategory = SERIOUS
+            mainFunnyButton.isChecked = false
+            mainSeriousButton.isChecked = false
+            mainCrazyButton.isChecked = true
+            mainPopularButton.isChecked = false
+
+            thoughtsListener.remove()
+            setListener()
+        }
+
+        mainPopularButton.setOnClickListener {
+            selectedCategory = SERIOUS
+            mainFunnyButton.isChecked = false
+            mainSeriousButton.isChecked = false
+            mainCrazyButton.isChecked = false
+            mainPopularButton.isChecked = true
+
+            thoughtsListener.remove()
+            setListener()
         }
 
         thoughtsAdapter = ThoughtsAdapter(thoughts)
@@ -98,49 +141,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
         thoughtsAdapter.notifyDataSetChanged()
-    }
-
-    fun mainFunnyClicked(view: View) {
-        selectedCategory = FUNNY
-        mainFunnyButton.isChecked = true
-        mainSeriousButton.isChecked = false
-        mainCrazyButton.isChecked = false
-        mainPopularButton.isChecked = false
-
-        thoughtsListener.remove()
-        setListener()
-    }
-
-    fun mainSeriousClicked(view: View) {
-        selectedCategory = SERIOUS
-        mainFunnyButton.isChecked = false
-        mainSeriousButton.isChecked = true
-        mainCrazyButton.isChecked = false
-        mainPopularButton.isChecked = false
-
-        thoughtsListener.remove()
-        setListener()
-    }
-
-    fun mainCrazyClicked(view: View) {
-        selectedCategory = CRAZY
-        mainFunnyButton.isChecked = false
-        mainSeriousButton.isChecked = false
-        mainCrazyButton.isChecked = true
-        mainPopularButton.isChecked = false
-
-        thoughtsListener.remove()
-        setListener()
-    }
-
-    fun mainPopularClicked(view: View) {
-        selectedCategory = POPULAR
-        mainFunnyButton.isChecked = false
-        mainSeriousButton.isChecked = false
-        mainCrazyButton.isChecked = false
-        mainPopularButton.isChecked = true
-
-        thoughtsListener.remove()
-        setListener()
     }
 }
