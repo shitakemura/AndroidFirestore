@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.shitakemura.androidfirestore.Model.Thought
+import com.example.shitakemura.androidfirestore.Utilities.NUM_LIKES
+import com.example.shitakemura.androidfirestore.Utilities.THOUGHT_REF
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
