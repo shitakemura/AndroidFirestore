@@ -1,4 +1,4 @@
-package com.example.shitakemura.androidfirestore
+package com.example.shitakemura.androidfirestore.Activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.example.shitakemura.androidfirestore.Adapters.ThoughtsAdapter
+import com.example.shitakemura.androidfirestore.Model.Thought
+import com.example.shitakemura.androidfirestore.R
+import com.example.shitakemura.androidfirestore.Utilities.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -79,7 +83,11 @@ class MainActivity : AppCompatActivity() {
             setListener()
         }
 
-        thoughtsAdapter = ThoughtsAdapter(thoughts)
+        thoughtsAdapter = ThoughtsAdapter(thoughts) {thought ->  
+            val commentsActivity = Intent(this, CommentsActivity::class.java)
+            commentsActivity.putExtra(DOCUMENT_KEY, thought.documentId)
+            startActivity(commentsActivity)
+        }
         thoughtListView.adapter = thoughtsAdapter
 
         val layoutManager = LinearLayoutManager(this)

@@ -1,9 +1,11 @@
-package com.example.shitakemura.androidfirestore
+package com.example.shitakemura.androidfirestore.Activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import com.example.shitakemura.androidfirestore.*
+import com.example.shitakemura.androidfirestore.Utilities.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_add_tought.*

@@ -1,4 +1,4 @@
-package com.example.shitakemura.androidfirestore
+package com.example.shitakemura.androidfirestore.Model
 
 import java.util.*
 

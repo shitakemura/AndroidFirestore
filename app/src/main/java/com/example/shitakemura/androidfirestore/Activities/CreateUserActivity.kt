@@ -1,8 +1,12 @@
-package com.example.shitakemura.androidfirestore
+package com.example.shitakemura.androidfirestore.Activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.example.shitakemura.androidfirestore.Utilities.DATE_CREATED
+import com.example.shitakemura.androidfirestore.R
+import com.example.shitakemura.androidfirestore.Utilities.USERNAME
+import com.example.shitakemura.androidfirestore.Utilities.USER_REF
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FieldValue

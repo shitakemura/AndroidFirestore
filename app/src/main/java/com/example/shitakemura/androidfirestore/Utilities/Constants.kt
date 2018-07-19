@@ -1,4 +1,4 @@
-package com.example.shitakemura.androidfirestore
+package com.example.shitakemura.androidfirestore.Utilities
 
 // Collection Reference
 const val THOUGHT_REF = "thoughts"
@@ -18,3 +18,6 @@ const val THOUGHT_TEXT = "thoughtText"
 const val TIMESTAMP = "timestamp"
 const val USERNAME = "username"
 const val DATE_CREATED = "dateCreated"
+
+// Other Constants
+const val DOCUMENT_KEY = "docId"
