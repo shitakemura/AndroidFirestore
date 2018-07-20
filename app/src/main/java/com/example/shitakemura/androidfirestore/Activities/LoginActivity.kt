@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
-
     lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun login() {
+    private fun login() {
         val email = loginEmailText.text.toString()
         val password = loginPasswordText.text.toString()
 

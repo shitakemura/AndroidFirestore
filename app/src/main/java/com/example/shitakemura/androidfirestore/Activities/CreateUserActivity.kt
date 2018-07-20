@@ -3,8 +3,8 @@ package com.example.shitakemura.androidfirestore.Activities
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.example.shitakemura.androidfirestore.Utilities.DATE_CREATED
 import com.example.shitakemura.androidfirestore.R
+import com.example.shitakemura.androidfirestore.Utilities.DATE_CREATED
 import com.example.shitakemura.androidfirestore.Utilities.USERNAME
 import com.example.shitakemura.androidfirestore.Utilities.USER_REF
 import com.google.firebase.auth.FirebaseAuth
@@ -14,7 +14,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_create_user.*
 
 class CreateUserActivity : AppCompatActivity() {
-
     lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +30,7 @@ class CreateUserActivity : AppCompatActivity() {
         }
     }
 
-    fun createUser() {
+    private fun createUser() {
         val email = createEmailText.text.toString()
         val password = createPasswordText.text.toString()
         val username = createUsernameText.text.toString()
@@ -49,8 +48,8 @@ class CreateUserActivity : AppCompatActivity() {
                             }
 
                     val data = HashMap<String, Any>()
-                    data.put(USERNAME, username)
-                    data.put(DATE_CREATED, FieldValue.serverTimestamp())
+                    data[USERNAME] = username
+                    data[DATE_CREATED] = FieldValue.serverTimestamp()
 
                     FirebaseFirestore.getInstance().collection(USER_REF).document(result.user.uid)
                             .set(data)

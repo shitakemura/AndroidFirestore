@@ -14,7 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ThoughtsAdapter(val thoughts: ArrayList<Thought>, val itemClick: (Thought) -> Unit): RecyclerView.Adapter<ThoughtsAdapter.ViewHolder>() {
+class ThoughtsAdapter(private val thoughts: ArrayList<Thought>, private val itemClick: (Thought) -> Unit): RecyclerView.Adapter<ThoughtsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.thought_list_view, parent, false)
@@ -27,12 +27,12 @@ class ThoughtsAdapter(val thoughts: ArrayList<Thought>, val itemClick: (Thought)
         holder.bindThought(thoughts[position])
     }
 
-    inner class ViewHolder(itemView: View?, val itemClick: (Thought) -> Unit) : RecyclerView.ViewHolder(itemView) {
-        val username = itemView?.findViewById<TextView>(R.id.listViewUsername)
-        val timestamp = itemView?.findViewById<TextView>(R.id.listViewTimestamp)
-        val thoughtText = itemView?.findViewById<TextView>(R.id.listViewThoughtText)
-        val likesImage = itemView?.findViewById<ImageView>(R.id.listVIewLikesImage)
-        val numLikes = itemView?.findViewById<TextView>(R.id.listViewNumLikesLabel)
+    inner class ViewHolder(itemView: View?, private val itemClick: (Thought) -> Unit) : RecyclerView.ViewHolder(itemView) {
+        private val username = itemView?.findViewById<TextView>(R.id.listViewUsername)
+        private val timestamp = itemView?.findViewById<TextView>(R.id.listViewTimestamp)
+        private val thoughtText = itemView?.findViewById<TextView>(R.id.listViewThoughtText)
+        private val likesImage = itemView?.findViewById<ImageView>(R.id.listVIewLikesImage)
+        private val numLikes = itemView?.findViewById<TextView>(R.id.listViewNumLikesLabel)
 
         fun bindThought(thought: Thought) {
             username?.text = thought.username

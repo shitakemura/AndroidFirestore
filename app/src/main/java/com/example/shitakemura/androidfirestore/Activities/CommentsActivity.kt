@@ -7,7 +7,6 @@ import com.example.shitakemura.androidfirestore.Utilities.DOCUMENT_KEY
 import kotlinx.android.synthetic.main.activity_comments.*
 
 class CommentsActivity : AppCompatActivity() {
-
     lateinit var thoughtDocumentId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.AddToughtActivity">
+    tools:context=".Activities.AddThoughtActivity">
 
     <ToggleButton
         android:id="@+id/addFunnyButton"
@@ -15,10 +15,10 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/category_toggle"
         android:checked="true"
-        android:text="ToggleButton"
+        android:text="@string/togglebutton"
         android:textColor="@android:color/background_light"
-        android:textOff="funny"
-        android:textOn="funny"
+        android:textOff="@string/funny"
+        android:textOn="@string/funny"
         app:layout_constraintEnd_toStartOf="@+id/addSeriousButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,10 +29,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/category_toggle"
-        android:text="ToggleButton"
+        android:text="@string/togglebutton"
         android:textColor="@android:color/background_light"
-        android:textOff="serious"
-        android:textOn="serious"
+        android:textOff="@string/serious"
+        android:textOn="@string/serious"
         app:layout_constraintBottom_toBottomOf="@+id/addFunnyButton"
         app:layout_constraintEnd_toStartOf="@+id/addCrazyButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -46,10 +46,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/category_toggle"
-        android:text="ToggleButton"
+        android:text="@string/togglebutton"
         android:textColor="@android:color/background_light"
-        android:textOff="crazy"
-        android:textOn="crazy"
+        android:textOff="@string/crazy"
+        android:textOn="@string/crazy"
         app:layout_constraintBottom_toBottomOf="@+id/addSeriousButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -64,7 +64,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="username"
+        android:hint="@string/username"
         android:inputType="textPersonName"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addSeriousButton" />
 
     <EditText
-        android:id="@+id/addToughtText"
+        android:id="@+id/addThoughtText"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginEnd="24dp"
@@ -82,7 +82,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:gravity="top|center_vertical"
-        android:hint="my random thought..."
+        android:hint="@string/my_random_thought"
         android:inputType="textMultiLine"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,10 +96,10 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorAccent"
         android:onClick="addPostClicked"
-        android:text="Post"
+        android:text="@string/post"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addToughtText" />
+        app:layout_constraintTop_toBottomOf="@+id/addThoughtText" />
 </android.support.constraint.ConstraintLayout>

@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">AndroidFirestore</string>
     <string name="action_settings">Settings</string>
+    <string name="username">username</string>
+    <string name="cancel">Cancel</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="create_user">Create User</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="funny">funny</string>
+    <string name="serious">serious</string>
+    <string name="crazy">crazy</string>
+    <string name="popular">popular</string>
+    <string name="add_comment">add comment ...</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="my_random_thought">my random thought...</string>
+    <string name="post">Post</string>
 </resources>

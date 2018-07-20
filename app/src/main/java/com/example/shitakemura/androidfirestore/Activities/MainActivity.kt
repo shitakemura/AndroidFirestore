@@ -21,69 +21,44 @@ import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
     private var selectedCategory = FUNNY
     private lateinit var thoughtsAdapter: ThoughtsAdapter
     private val thoughts = arrayListOf<Thought>()
     private val thoughtsCollectionRef = FirebaseFirestore.getInstance().collection(THOUGHT_REF)
-    lateinit var thoughtsListener: ListenerRegistration
-    lateinit var auth: FirebaseAuth
+    private lateinit var thoughtsListener: ListenerRegistration
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            val addToughtIntent = Intent(this, AddToughtActivity::class.java)
-            startActivity(addToughtIntent)
+        fab.setOnClickListener {
+            val addThoughtIntent = Intent(this, AddThoughtActivity::class.java)
+            startActivity(addThoughtIntent)
         }
 
         mainFunnyButton.setOnClickListener {
-            selectedCategory = FUNNY
-            mainFunnyButton.isChecked = true
-            mainSeriousButton.isChecked = false
-            mainCrazyButton.isChecked = false
-            mainPopularButton.isChecked = false
-
-            thoughtsListener.remove()
-            setListener()
+            setCategory(FUNNY)
+            resetListener()
         }
 
         mainSeriousButton.setOnClickListener {
-            selectedCategory = SERIOUS
-            mainFunnyButton.isChecked = false
-            mainSeriousButton.isChecked = true
-            mainCrazyButton.isChecked = false
-            mainPopularButton.isChecked = false
-
-            thoughtsListener.remove()
-            setListener()
+            setCategory(SERIOUS)
+            resetListener()
         }
 
         mainCrazyButton.setOnClickListener {
-            selectedCategory = SERIOUS
-            mainFunnyButton.isChecked = false
-            mainSeriousButton.isChecked = false
-            mainCrazyButton.isChecked = true
-            mainPopularButton.isChecked = false
-
-            thoughtsListener.remove()
-            setListener()
+            setCategory(CRAZY)
+            resetListener()
         }
 
         mainPopularButton.setOnClickListener {
-            selectedCategory = SERIOUS
-            mainFunnyButton.isChecked = false
-            mainSeriousButton.isChecked = false
-            mainCrazyButton.isChecked = false
-            mainPopularButton.isChecked = true
-
-            thoughtsListener.remove()
-            setListener()
+            setCategory(POPULAR)
+            resetListener()
         }
 
-        thoughtsAdapter = ThoughtsAdapter(thoughts) {thought ->  
+        thoughtsAdapter = ThoughtsAdapter(thoughts) { thought ->
             val commentsActivity = Intent(this, CommentsActivity::class.java)
             commentsActivity.putExtra(DOCUMENT_KEY, thought.documentId)
             startActivity(commentsActivity)
@@ -93,6 +68,42 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         thoughtListView.layoutManager = layoutManager
         auth = FirebaseAuth.getInstance()
+    }
+
+    private fun setCategory(selectedCategory: String) {
+        this.selectedCategory = selectedCategory
+
+        when (selectedCategory) {
+            FUNNY -> {
+                mainFunnyButton.isChecked = true
+                mainSeriousButton.isChecked = false
+                mainCrazyButton.isChecked = false
+                mainPopularButton.isChecked = false
+            }
+            SERIOUS -> {
+                mainFunnyButton.isChecked = false
+                mainSeriousButton.isChecked = true
+                mainCrazyButton.isChecked = false
+                mainPopularButton.isChecked = false
+            }
+            CRAZY -> {
+                mainFunnyButton.isChecked = false
+                mainSeriousButton.isChecked = false
+                mainCrazyButton.isChecked = true
+                mainPopularButton.isChecked = false
+            }
+            POPULAR -> {
+                mainFunnyButton.isChecked = false
+                mainSeriousButton.isChecked = false
+                mainCrazyButton.isChecked = false
+                mainPopularButton.isChecked = true
+            }
+        }
+    }
+
+    private fun resetListener() {
+        thoughtsListener.remove()
+        setListener()
     }
 
     override fun onResume() {
@@ -115,23 +126,24 @@ class MainActivity : AppCompatActivity() {
         return super.onPrepareOptionsMenu(menu)
     }
 
-    fun updateUI() {
+    private fun updateUI() {
         if (auth.currentUser == null) {
-            mainCrazyButton.isEnabled = false
-            mainPopularButton.isEnabled = false
-            mainFunnyButton.isEnabled = false
-            mainSeriousButton.isEnabled = false
-            fab.isEnabled = false
+            setButtonsEnabled(false)
             thoughts.clear()
             thoughtsAdapter.notifyDataSetChanged()
+
         } else {
-            mainCrazyButton.isEnabled = true
-            mainPopularButton.isEnabled = true
-            mainFunnyButton.isEnabled = true
-            mainSeriousButton.isEnabled = true
-            fab.isEnabled = true
+            setButtonsEnabled(true)
             setListener()
         }
+    }
+
+    private fun setButtonsEnabled(isEnabled: Boolean) {
+        mainFunnyButton.isEnabled = isEnabled
+        mainSeriousButton.isEnabled = isEnabled
+        mainCrazyButton.isEnabled = isEnabled
+        mainPopularButton.isEnabled = isEnabled
+        fab.isEnabled = isEnabled
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -148,8 +160,7 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-    fun setListener() {
-
+    private fun setListener() {
         if (selectedCategory == POPULAR) {
 
             thoughtsListener = thoughtsCollectionRef
@@ -164,7 +175,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
         } else {
-
             thoughtsListener = thoughtsCollectionRef
                     .orderBy(TIMESTAMP, Query.Direction.DESCENDING)
                     .whereEqualTo(CATEGORY, selectedCategory)
@@ -181,12 +191,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun parseData(snapshot: QuerySnapshot) {
+    private fun parseData(snapshot: QuerySnapshot) {
         thoughts.clear()
 
         for (document in snapshot.documents) {
             val data = document.data
-            data?.let { data ->
+            data?.let {
                 val name = data[USERNAME] as String
                 val timestamp = data[TIMESTAMP] as Date
                 val thoughtText = data[THOUGHT_TEXT] as String
