@@ -2,7 +2,10 @@ package com.example.shitakemura.androidfirestore.Activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import com.example.shitakemura.androidfirestore.Adapters.CommentsAdapter
+import com.example.shitakemura.androidfirestore.Model.Comment
 import com.example.shitakemura.androidfirestore.R
 import com.example.shitakemura.androidfirestore.Utilities.*
 import com.google.firebase.auth.FirebaseAuth
@@ -12,12 +15,18 @@ import kotlinx.android.synthetic.main.activity_comments.*
 
 class CommentsActivity : AppCompatActivity() {
     private lateinit var thoughtDocumentId: String
+    private lateinit var commentsAdapter: CommentsAdapter
+    private val comments = arrayListOf<Comment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
         thoughtDocumentId = intent.getStringExtra(DOCUMENT_KEY)
         println("thoughtDocumentId: $thoughtDocumentId")
+
+        commentsAdapter = CommentsAdapter(comments)
+        commentListView.adapter = commentsAdapter
+        commentListView.layoutManager = LinearLayoutManager(this)
 
         addCommentButton.setOnClickListener {
             addComment()
