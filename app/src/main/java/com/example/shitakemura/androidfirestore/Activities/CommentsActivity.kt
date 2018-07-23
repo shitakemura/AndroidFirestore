@@ -1,9 +1,11 @@
 package com.example.shitakemura.androidfirestore.Activities
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import com.example.shitakemura.androidfirestore.Adapters.CommentsAdapter
 import com.example.shitakemura.androidfirestore.Model.Comment
 import com.example.shitakemura.androidfirestore.R
@@ -12,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_comments.*
+import java.util.*
 
 class CommentsActivity : AppCompatActivity() {
     private lateinit var thoughtDocumentId: String
@@ -27,6 +30,32 @@ class CommentsActivity : AppCompatActivity() {
         commentsAdapter = CommentsAdapter(comments)
         commentListView.adapter = commentsAdapter
         commentListView.layoutManager = LinearLayoutManager(this)
+
+        FirebaseFirestore.getInstance().collection(THOUGHT_REF).document(thoughtDocumentId)
+                .collection(COMMENTS_REF).addSnapshotListener { snapshot, exception ->
+
+                    if (exception != null) {
+                        Log.e("Exception,", "Could not retrieve comments ${exception.localizedMessage}")
+                    }
+
+                    if (snapshot != null) {
+                        comments.clear()
+
+                        for (document in snapshot.documents) {
+                            val data = document.data
+
+                            data?.let {
+                                val name = data[USERNAME] as String
+                                val timestamp = data[TIMESTAMP] as Date
+                                val commentText = data[COMMENT_TEXT] as String
+
+                                val newComment = Comment(name, timestamp, commentText)
+                                comments.add(newComment)
+                            }
+                        }
+                        commentsAdapter.notifyDataSetChanged()
+                    }
+                }
 
         addCommentButton.setOnClickListener {
             addComment()
@@ -55,11 +84,17 @@ class CommentsActivity : AppCompatActivity() {
         }
                 .addOnSuccessListener {
                     enterCommentText.setText("")
+                    hideKeyboard()
                 }
                 .addOnFailureListener { exception ->
                     Log.e("Exception,", "Could not add comment ${exception.localizedMessage}")
                 }
     }
 
-
+    private fun hideKeyboard() {
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (inputManager.isAcceptingText) {
+            inputManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+        }
+    }
 }
