@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import com.example.shitakemura.androidfirestore.R
 import com.example.shitakemura.androidfirestore.Utilities.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_add_tought.*
@@ -60,7 +61,7 @@ class AddThoughtActivity : AppCompatActivity() {
         data[NUM_LIKES] = 0
         data[THOUGHT_TEXT] = addThoughtText.text.toString()
         data[TIMESTAMP] = FieldValue.serverTimestamp()
-        data[USERNAME] = addUsernameText.text.toString()
+        data[USERNAME] = FirebaseAuth.getInstance().currentUser?.displayName.toString()
 
         FirebaseFirestore.getInstance().collection(THOUGHT_REF)
                 .add(data)

@@ -13,6 +13,7 @@ import com.example.shitakemura.androidfirestore.Utilities.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_comments.*
 import java.util.*
 
@@ -32,7 +33,9 @@ class CommentsActivity : AppCompatActivity() {
         commentListView.layoutManager = LinearLayoutManager(this)
 
         FirebaseFirestore.getInstance().collection(THOUGHT_REF).document(thoughtDocumentId)
-                .collection(COMMENTS_REF).addSnapshotListener { snapshot, exception ->
+                .collection(COMMENTS_REF)
+                .orderBy(TIMESTAMP, Query.Direction.DESCENDING)
+                .addSnapshotListener { snapshot, exception ->
 
                     if (exception != null) {
                         Log.e("Exception,", "Could not retrieve comments ${exception.localizedMessage}")

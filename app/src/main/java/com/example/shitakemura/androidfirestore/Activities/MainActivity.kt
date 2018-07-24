@@ -201,7 +201,7 @@ class MainActivity : AppCompatActivity() {
                 val timestamp = data[TIMESTAMP] as Date
                 val thoughtText = data[THOUGHT_TEXT] as String
                 val numLikes = data[NUM_LIKES] as Long
-                val numComments = data[NUM_LIKES] as Long
+                val numComments = data[NUM_COMMENTS] as Long
                 val documentId = document.id
 
                 val newThought = Thought(name, timestamp, thoughtText, numLikes.toInt(), numComments.toInt(), documentId)
