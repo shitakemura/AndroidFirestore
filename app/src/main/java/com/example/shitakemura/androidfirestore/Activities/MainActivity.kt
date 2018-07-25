@@ -72,33 +72,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun setCategory(selectedCategory: String) {
         this.selectedCategory = selectedCategory
+        uncheckedToggleButtons()
 
         when (selectedCategory) {
             FUNNY -> {
                 mainFunnyButton.isChecked = true
-                mainSeriousButton.isChecked = false
-                mainCrazyButton.isChecked = false
-                mainPopularButton.isChecked = false
             }
             SERIOUS -> {
-                mainFunnyButton.isChecked = false
                 mainSeriousButton.isChecked = true
-                mainCrazyButton.isChecked = false
-                mainPopularButton.isChecked = false
             }
             CRAZY -> {
-                mainFunnyButton.isChecked = false
-                mainSeriousButton.isChecked = false
                 mainCrazyButton.isChecked = true
-                mainPopularButton.isChecked = false
             }
             POPULAR -> {
-                mainFunnyButton.isChecked = false
-                mainSeriousButton.isChecked = false
-                mainCrazyButton.isChecked = false
                 mainPopularButton.isChecked = true
             }
         }
+    }
+
+    private fun uncheckedToggleButtons() {
+        mainFunnyButton.isChecked = false
+        mainSeriousButton.isChecked = false
+        mainCrazyButton.isChecked = false
+        mainPopularButton.isChecked = false
     }
 
     private fun resetListener() {

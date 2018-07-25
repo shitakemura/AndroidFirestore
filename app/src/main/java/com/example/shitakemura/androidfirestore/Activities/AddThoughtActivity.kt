@@ -33,24 +33,25 @@ class AddThoughtActivity : AppCompatActivity() {
 
     private fun setCategory(selectedCategory: String) {
         this.selectedCategory = selectedCategory
+        uncheckedToggleButtons()
 
         when (selectedCategory) {
             FUNNY -> {
                 addFunnyButton.isChecked = true
-                addSeriousButton.isChecked = false
-                addCrazyButton.isChecked = false
             }
             SERIOUS -> {
-                addFunnyButton.isChecked = false
                 addSeriousButton.isChecked = true
-                addCrazyButton.isChecked = false
             }
             CRAZY -> {
-                addFunnyButton.isChecked = false
-                addSeriousButton.isChecked = false
                 addCrazyButton.isChecked = true
             }
         }
+    }
+
+    private fun uncheckedToggleButtons() {
+        addFunnyButton.isChecked = false
+        addSeriousButton.isChecked = false
+        addCrazyButton.isChecked = false
     }
 
     fun addPostClicked(view: View) {
